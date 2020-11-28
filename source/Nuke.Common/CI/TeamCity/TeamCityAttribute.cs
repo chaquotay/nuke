@@ -265,6 +265,7 @@ namespace Nuke.Common.CI.TeamCity
             var valueSet = ParameterService.GetParameterValueSet(member, build);
             var valueSeparator = attribute.Separator ?? " ";
 
+            // TODO: Abstract AbsolutePath/Solution/Project etc.
             var defaultValue = member.GetValue(build);
             // TODO: enumerables of ...
             if (defaultValue != null &&
