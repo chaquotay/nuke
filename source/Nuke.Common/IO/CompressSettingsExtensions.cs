@@ -76,7 +76,9 @@ namespace Nuke.Common.IO
         {
             settings = settings.NewInstance();
 
-            var files = Glob.Files(directory, globPattern);
+            var files = Glob.Files(directory, globPattern)
+                .Select(file => Path.Combine(directory, file));
+
             var entries = files
                 .Select(file => (RelativePath: PathConstruction.GetRelativePath(directory, file), File: file))
                 .ToDictionary(x => x.RelativePath, x => x.File);

@@ -61,7 +61,7 @@ namespace Nuke.Common.IO.CompressionFormat
                 foreach (var file in settings.Files)
                 {
                     var relativePath = file.Key;
-                    var entry = TarEntry.CreateEntryFromFile(relativePath);
+                    var entry = TarEntry.CreateEntryFromFile(file.Value);
                     entry.Name = PathConstruction.NormalizePath(relativePath, separator: '/');
 
                     tarArchive.WriteEntry(entry, recurse: false);

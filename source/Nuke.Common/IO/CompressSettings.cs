@@ -12,6 +12,7 @@ using Nuke.Common.Tooling;
 namespace Nuke.Common.IO
 {
     [PublicAPI]
+    [Serializable]
     public class CompressSettings : ISettingsEntity
     {
         private Dictionary<string, string> _files = new Dictionary<string, string>();

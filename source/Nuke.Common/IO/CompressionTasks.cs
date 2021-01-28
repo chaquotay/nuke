@@ -49,6 +49,19 @@ namespace Nuke.Common.IO
             format.Compress(settings);
         }
 
+        public static void Compress(Configure<CompressSettings> configure)
+        {
+            var settings = configure.InvokeSafe(new CompressSettings());
+
+            var archiveFile = settings.ArchiveFile;
+            var format = GetCompressedArchiveFileFormat(archiveFile);
+
+            if (format == null)
+                ControlFlow.Fail($"Unknown archive extension for archive '{Path.GetFileName(archiveFile)}'");
+
+            format.Compress(settings);
+        }
+
         public static void Uncompress(string archiveFile, string directory)
         {
             var format = GetCompressedArchiveFileFormat(archiveFile);
