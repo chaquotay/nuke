@@ -1,0 +1,56 @@
+{
+  "$schema": "https://raw.githubusercontent.com/nuke-build/nuke/master/source/Nuke.CodeGeneration/schema.json",
+  "references": [
+    "https://docs.microsoft.com/en-us/visualstudio/ide/reference/devenv-command-line-switches"
+  ],
+  "name": "Devenv",
+  "officialUrl": "https://docs.microsoft.com/en-us/visualstudio/ide/reference/devenv-command-line-switches",
+  "help": "Devenv lets you build projects and deploy projects from the command line. Use these switches to run the IDE from a script or a .bat file (such as a nightly build script).",
+  "customExecutable": true,
+  "tasks": [
+    {
+      "help": "Builds the specified solution or project according to the configuration of the specified solution.",
+      "postfix": "Build",
+      "definiteArgument": "/Build",
+      "settingsClass": {}
+    },
+    {
+      "help": "Cleans and then builds the specified solution or project according to the configuration of the specified solution.",
+      "postfix": "Rebuild",
+      "definiteArgument": "/Rebuild",
+      "settingsClass": {}
+    },
+    {
+      "help": "Builds the solution, along with files necessary for deployment, according to the solution's configuration.",
+      "postfix": "Deploy",
+      "definiteArgument": "/Deploy",
+      "settingsClass": {}
+    },
+    {
+      "help": "Deletes any files created by the build command, without affecting source files.",
+      "postfix": "Clean",
+      "definiteArgument": "/Clean",
+      "settingsClass": {}
+    }
+  ],
+  "commonTaskProperties": [
+    {
+      "name": "Logfile",
+      "type": "string",
+      "format": "/Out {value}",
+      "help": "Lets you specify a file to receive errors when you build."
+    },
+    {
+      "name": "Project",
+      "type": "string",
+      "format": "/Project {value}",
+      "help": "The project to build, clean, or deploy."
+    },
+    {
+      "name": "ProjectConfig",
+      "type": "string",
+      "format": "/ProjectConfig {value}",
+      "help": "Specifies the project configuration to build or deploy."
+    }
+  ]
+}
