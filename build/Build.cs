@@ -78,7 +78,7 @@ using static Nuke.Common.Tools.ReSharper.ReSharperTasks;
     OnPullRequestBranches = new[] { DevelopBranch },
     PublishArtifacts = false,
     InvokedTargets = new[] { nameof(Test), nameof(Pack) },
-    ImportSecrets = new[] { nameof(CodecovToken) })]
+    ImportSecrets = new[] { nameof(CodecovToken), nameof(EnterpriseAccessToken) })]
 [AppVeyor(
     AppVeyorImage.VisualStudio2019,
     AppVeyorImage.Ubuntu1804,
