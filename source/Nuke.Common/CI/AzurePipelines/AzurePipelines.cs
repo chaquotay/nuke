@@ -91,6 +91,9 @@ namespace Nuke.Common.CI.AzurePipelines
         public string TeamFoundationCollectionUri => EnvironmentInfo.GetVariable<string>("SYSTEM_TEAMFOUNDATIONCOLLECTIONURI");
         public string TeamProject => EnvironmentInfo.GetVariable<string>("SYSTEM_TEAMPROJECT");
         public Guid TeamProjectId => EnvironmentInfo.GetVariable<Guid>("SYSTEM_TEAMPROJECTID");
+        public string JobDisplayName => EnvironmentInfo.GetVariable<string>("SYSTEM_JOBDISPLAYNAME");
+        public string JobId => EnvironmentInfo.GetVariable<string>("SYSTEM_JOBID");
+        public string TaskInstanceId => EnvironmentInfo.GetVariable<string>("SYSTEM_TASKINSTANCEID");
 
         public void Group(string group)
         {
