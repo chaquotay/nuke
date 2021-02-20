@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Xml.Linq;
 using JetBrains.Annotations;
 using Nuke.Common;
 using Nuke.Common.CI;
@@ -44,6 +45,7 @@ namespace Nuke.Components
                 finally
                 {
                     ReportTestResults();
+                    ReportMetadata();
                 }
             });
 
@@ -54,6 +56,26 @@ namespace Nuke.Components
                     type: AzurePipelinesTestResultsType.VSTest,
                     title: $"{Path.GetFileNameWithoutExtension(x)} ({AzurePipelines.Instance.StageDisplayName})",
                     files: new string[] { x }));
+        }
+
+        void ReportMetadata()
+        {
+            IEnumerable<string> GetOutcomes(AbsolutePath file)
+                => XmlTasks.XmlPeek(
+                    file,
+                    "/xn:TestRun/xn:Results/xn:UnitTestResult/@outcome",
+                    ("xn", "http://microsoft.com/schemas/VisualStudio/TeamTest/2010"));
+
+            var resultFiles = TestResultDirectory.GlobFiles("*.trx");
+            var outcomes = resultFiles.SelectMany(GetOutcomes).ToList();
+            var passedTests = outcomes.Count(x => x == "Passed");
+            var failedTests = outcomes.Count(x => x == "Failed");
+            var skippedTests = outcomes.Count(x => x == "NotExecuted");
+
+            if (failedTests > 0)
+                ControlFlow.Fail($"{failedTests} failed tests ({passedTests} passed, {skippedTests} skipped).");
+            else
+                Logger.Info($"{passedTests} passed tests ({skippedTests} skipped).");
         }
 
         sealed Configure<DotNetTestSettings> TestSettingsBase => _ => _
