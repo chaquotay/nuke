@@ -5,10 +5,9 @@
 using Nuke.Common.CI.GitHubActions;
 using Nuke.Components;
 using static Nuke.Components.IHazTwitterCredentials;
-using static Nuke.Enterprise.Notifications.IHazSlackCredentials;
 #if ENTERPRISE
 using Nuke.Enterprise.Notifications;
-
+using static Nuke.Enterprise.Notifications.IHazSlackCredentials;
 #endif
 
 [GitHubActions(

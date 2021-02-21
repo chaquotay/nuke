@@ -11,10 +11,9 @@ using Nuke.Common.CI.AzurePipelines.Configuration;
 using Nuke.Common.Execution;
 using Nuke.Common.Tooling;
 using Nuke.Components;
-using static Nuke.Enterprise.Notifications.IHazAzurePipelinesAccessToken;
-using static Nuke.Enterprise.Notifications.IHazSlackCredentials;
 #if ENTERPRISE
 using Nuke.Enterprise.Notifications;
+using static Nuke.Enterprise.Notifications.IHazSlackCredentials;
 #endif
 
 [AzurePipelines(
