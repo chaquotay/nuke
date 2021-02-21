@@ -28,10 +28,13 @@ project {
     buildType(Test_P1T2)
     buildType(Test_P2T2)
     buildType(Test)
+    buildType(ReportCodeDuplicates)
+    buildType(ReportCodeIssues)
+    buildType(ReportTestCoverage)
     buildType(Publish)
     buildType(Announce)
 
-    buildTypesOrder = arrayListOf(Compile, Pack, Test_P1T2, Test_P2T2, Test, Publish, Announce)
+    buildTypesOrder = arrayListOf(Compile, Pack, Test_P1T2, Test_P2T2, Test, ReportCodeDuplicates, ReportCodeIssues, ReportTestCoverage, Publish, Announce)
 
     params {
         select (
@@ -305,6 +308,112 @@ object Test : BuildType({
         }
         artifacts(Test_P2T2) {
             artifactRules = "**/*"
+        }
+    }
+})
+object ReportCodeDuplicates : BuildType({
+    name = "🎭 ReportCodeDuplicates"
+    vcs {
+        root(DslContext.settingsRoot)
+        cleanCheckout = true
+    }
+    steps {
+        exec {
+            path = "build.cmd"
+            arguments = "ReportCodeDuplicates --skip"
+            conditions { contains("teamcity.agent.jvm.os.name", "Windows") }
+        }
+        exec {
+            path = "build.sh"
+            arguments = "ReportCodeDuplicates --skip"
+            conditions { doesNotContain("teamcity.agent.jvm.os.name", "Windows") }
+        }
+    }
+    params {
+        text(
+            "teamcity.ui.runButton.caption",
+            "Report Code Duplicates",
+            display = ParameterDisplay.HIDDEN
+        )
+    }
+    triggers {
+        vcs {
+            triggerRules = "+:**"
+        }
+    }
+})
+object ReportCodeIssues : BuildType({
+    name = "💣 ReportCodeIssues"
+    vcs {
+        root(DslContext.settingsRoot)
+        cleanCheckout = true
+    }
+    steps {
+        exec {
+            path = "build.cmd"
+            arguments = "Restore ReportCodeIssues --skip"
+            conditions { contains("teamcity.agent.jvm.os.name", "Windows") }
+        }
+        exec {
+            path = "build.sh"
+            arguments = "Restore ReportCodeIssues --skip"
+            conditions { doesNotContain("teamcity.agent.jvm.os.name", "Windows") }
+        }
+    }
+    params {
+        text(
+            "teamcity.ui.runButton.caption",
+            "Report Code Issues",
+            display = ParameterDisplay.HIDDEN
+        )
+    }
+    triggers {
+        vcs {
+            triggerRules = "+:**"
+        }
+    }
+})
+object ReportTestCoverage : BuildType({
+    name = "📊 ReportTestCoverage"
+    vcs {
+        root(DslContext.settingsRoot)
+        cleanCheckout = true
+    }
+    artifactRules = "output/reports/coverage-report.zip => output/reports"
+    steps {
+        exec {
+            path = "build.cmd"
+            arguments = "ReportTestCoverage --skip"
+            conditions { contains("teamcity.agent.jvm.os.name", "Windows") }
+        }
+        exec {
+            path = "build.sh"
+            arguments = "ReportTestCoverage --skip"
+            conditions { doesNotContain("teamcity.agent.jvm.os.name", "Windows") }
+        }
+    }
+    params {
+        text(
+            "teamcity.ui.runButton.caption",
+            "Report Test Coverage",
+            display = ParameterDisplay.HIDDEN
+        )
+    }
+    triggers {
+        vcs {
+            triggerRules = "+:**"
+        }
+    }
+    dependencies {
+        snapshot(Test) {
+            onDependencyFailure = FailureAction.FAIL_TO_START
+            onDependencyCancel = FailureAction.CANCEL
+        }
+        artifacts(Test) {
+            artifactRules = """
+                output/test-results/*.trx => output/test-results
+                output/test-results/*.xml => output/test-results
+            """.trimIndent()
         }
     }
 })

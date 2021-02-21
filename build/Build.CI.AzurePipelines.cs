@@ -55,16 +55,7 @@ partial class Build
         {
             var job = base.GetJob(executableTarget, jobs, relevantTargets);
 
-            var dictionary = new Dictionary<string, string>
-                             {
-                                 { nameof(ICompile.Compile), "⚙️" },
-                                 { nameof(ITest.Test), "🚦" },
-                                 { nameof(IPack.Pack), "📦" },
-                                 { nameof(IReportTestCoverage.ReportTestCoverage), "📊" },
-                                 { nameof(IPublish.Publish), "🚚" },
-                                 { nameof(Announce), "🗣" }
-                             };
-            var symbol = dictionary.GetValueOrDefault(job.Name).NotNull("symbol != null");
+            var symbol = CustomNames.GetValueOrDefault(job.Name).NotNull("symbol != null");
             job.DisplayName = job.PartitionName == null
                 ? $"{symbol} {job.DisplayName}"
                 : $"{symbol} {job.DisplayName} 🧩";

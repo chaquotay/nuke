@@ -94,7 +94,7 @@ partial class Build
         .Partition(() => TestPartition);
 
     bool IReportTestCoverage.CreateCoverageHtmlReport => true;
-    bool IReportTestCoverage.ReportToCodecov => TeamCity != null;
+    bool IReportTestCoverage.ReportToCodecov => false;
 
     IEnumerable<(string PackageId, string Version)> IReportCodeIssues.InspectCodePlugins
         => new (string PackageId, string Version)[]

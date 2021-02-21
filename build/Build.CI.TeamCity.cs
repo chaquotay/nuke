@@ -14,9 +14,24 @@ using Nuke.Components;
 
 [TeamCity(
     Version = "2020.1",
-    VcsTriggeredTargets = new[] { nameof(IPack.Pack), nameof(ITest.Test) },
+    VcsTriggeredTargets =
+        new[]
+        {
+            nameof(IPack.Pack),
+            nameof(ITest.Test),
+            nameof(IReportCodeDuplicates.ReportCodeDuplicates),
+            nameof(IReportCodeIssues.ReportCodeIssues),
+            nameof(IReportTestCoverage.ReportTestCoverage)
+        },
     ManuallyTriggeredTargets = new[] { nameof(IPublish.Publish) },
-    NonEntryTargets = new[] { nameof(IRestore.Restore), nameof(DownloadFonts), nameof(InstallFonts), nameof(ReleaseImage) },
+    NonEntryTargets =
+        new[]
+        {
+            nameof(IRestore.Restore),
+            nameof(DownloadFonts),
+            nameof(InstallFonts),
+            nameof(ReleaseImage)
+        },
     ExcludedTargets = new[] { nameof(Clean), nameof(SignPackages) })]
 partial class Build
 {
@@ -29,19 +44,10 @@ partial class Build
             LookupTable<ExecutableTarget, TeamCityBuildType> buildTypes,
             IReadOnlyCollection<ExecutableTarget> relevantTargets)
         {
-            var dictionary = new Dictionary<string, string>
-                             {
-                                 { nameof(ICompile.Compile), "⚙️" },
-                                 { nameof(ITest.Test), "🚦" },
-                                 { nameof(IPack.Pack), "📦" },
-                                 { nameof(IReportTestCoverage.ReportTestCoverage), "📊" },
-                                 { nameof(IPublish.Publish), "🚚" },
-                                 { nameof(Announce), "🗣" }
-                             };
             return base.GetBuildTypes(build, executableTarget, vcsRoot, buildTypes, relevantTargets)
                 .ForEachLazy(x =>
                 {
-                    var symbol = dictionary.GetValueOrDefault(x.InvokedTargets.Last()).NotNull("symbol != null");
+                    var symbol = CustomNames.GetValueOrDefault(x.InvokedTargets.Last()).NotNull("symbol != null");
                     x.Name = x.PartitionName == null
                         ? $"{symbol} {x.Name}"
                         : $"{symbol} {x.InvokedTargets.Last()} 🧩 {x.Partition}";
