@@ -893,25 +893,80 @@ namespace Nuke.Common.Tools.Coverlet
         #endregion
         #region CoverletOutputFormat
         /// <summary>
-        ///   <p><em>Sets <c>CoverletOutputFormat</c> in <see cref="DotNetTestSettings.Properties"/></em></p>
+        ///   <p><em>Sets <c>CoverletOutputFormat</c> in <see cref="DotNetTestSettings.Properties"/> to a new collection</em></p>
         ///   <p>Set or override the specified project-level properties, where name is the property name and value is the property value. Specify each property separately, or use a semicolon or comma to separate multiple properties, as the following example shows:</p><p><c>/property:WarningLevel=2;OutDir=bin\Debug</c></p>
         /// </summary>
         [Pure]
-        public static T SetCoverletOutputFormat<T>(this T toolSettings, CoverletOutputFormat coverletOutputFormat) where T : DotNetTestSettings
+        public static T SetCoverletOutputFormats<T>(this T toolSettings, params CoverletOutputFormat[] coverletOutputFormat) where T : DotNetTestSettings
         {
             toolSettings = toolSettings.NewInstance();
-            toolSettings.PropertiesInternal["CoverletOutputFormat"] = coverletOutputFormat;
+            ExtensionHelper.SetCollection(toolSettings.PropertiesInternal, "CoverletOutputFormat", coverletOutputFormat, ',');
             return toolSettings;
         }
         /// <summary>
-        ///   <p><em>Resets <c>CoverletOutputFormat</c> in <see cref="DotNetTestSettings.Properties"/></em></p>
+        ///   <p><em>Sets <c>CoverletOutputFormat</c> in <see cref="DotNetTestSettings.Properties"/> to a new collection</em></p>
         ///   <p>Set or override the specified project-level properties, where name is the property name and value is the property value. Specify each property separately, or use a semicolon or comma to separate multiple properties, as the following example shows:</p><p><c>/property:WarningLevel=2;OutDir=bin\Debug</c></p>
         /// </summary>
         [Pure]
-        public static T ResetCoverletOutputFormat<T>(this T toolSettings) where T : DotNetTestSettings
+        public static T SetCoverletOutputFormats<T>(this T toolSettings, IEnumerable<CoverletOutputFormat> coverletOutputFormat) where T : DotNetTestSettings
+        {
+            toolSettings = toolSettings.NewInstance();
+            ExtensionHelper.SetCollection(toolSettings.PropertiesInternal, "CoverletOutputFormat", coverletOutputFormat, ',');
+            return toolSettings;
+        }
+        /// <summary>
+        ///   <p><em>Adds values to <c>CoverletOutputFormat</c> in <see cref="DotNetTestSettings.Properties"/></em></p>
+        ///   <p>Set or override the specified project-level properties, where name is the property name and value is the property value. Specify each property separately, or use a semicolon or comma to separate multiple properties, as the following example shows:</p><p><c>/property:WarningLevel=2;OutDir=bin\Debug</c></p>
+        /// </summary>
+        [Pure]
+        public static T AddCoverletOutputFormats<T>(this T toolSettings, params CoverletOutputFormat[] coverletOutputFormat) where T : DotNetTestSettings
+        {
+            toolSettings = toolSettings.NewInstance();
+            ExtensionHelper.AddItems(toolSettings.PropertiesInternal, "CoverletOutputFormat", coverletOutputFormat, ',');
+            return toolSettings;
+        }
+        /// <summary>
+        ///   <p><em>Adds values to <c>CoverletOutputFormat</c> in existing <see cref="DotNetTestSettings.Properties"/></em></p>
+        ///   <p>Set or override the specified project-level properties, where name is the property name and value is the property value. Specify each property separately, or use a semicolon or comma to separate multiple properties, as the following example shows:</p><p><c>/property:WarningLevel=2;OutDir=bin\Debug</c></p>
+        /// </summary>
+        [Pure]
+        public static T AddCoverletOutputFormats<T>(this T toolSettings, IEnumerable<CoverletOutputFormat> coverletOutputFormat) where T : DotNetTestSettings
+        {
+            toolSettings = toolSettings.NewInstance();
+            ExtensionHelper.AddItems(toolSettings.PropertiesInternal, "CoverletOutputFormat", coverletOutputFormat, ',');
+            return toolSettings;
+        }
+        /// <summary>
+        ///   <p><em>Clears <c>CoverletOutputFormat</c> in <see cref="DotNetTestSettings.Properties"/></em></p>
+        ///   <p>Set or override the specified project-level properties, where name is the property name and value is the property value. Specify each property separately, or use a semicolon or comma to separate multiple properties, as the following example shows:</p><p><c>/property:WarningLevel=2;OutDir=bin\Debug</c></p>
+        /// </summary>
+        [Pure]
+        public static T ClearCoverletOutputFormats<T>(this T toolSettings) where T : DotNetTestSettings
         {
             toolSettings = toolSettings.NewInstance();
             toolSettings.PropertiesInternal.Remove("CoverletOutputFormat");
+            return toolSettings;
+        }
+        /// <summary>
+        ///   <p><em>Removes values from <c>CoverletOutputFormat</c> in <see cref="DotNetTestSettings.Properties"/></em></p>
+        ///   <p>Set or override the specified project-level properties, where name is the property name and value is the property value. Specify each property separately, or use a semicolon or comma to separate multiple properties, as the following example shows:</p><p><c>/property:WarningLevel=2;OutDir=bin\Debug</c></p>
+        /// </summary>
+        [Pure]
+        public static T RemoveCoverletOutputFormats<T>(this T toolSettings, params CoverletOutputFormat[] coverletOutputFormat) where T : DotNetTestSettings
+        {
+            toolSettings = toolSettings.NewInstance();
+            ExtensionHelper.RemoveItems(toolSettings.PropertiesInternal, "CoverletOutputFormat", coverletOutputFormat, ',');
+            return toolSettings;
+        }
+        /// <summary>
+        ///   <p><em>Removes values from <c>CoverletOutputFormat</c> in <see cref="DotNetTestSettings.Properties"/></em></p>
+        ///   <p>Set or override the specified project-level properties, where name is the property name and value is the property value. Specify each property separately, or use a semicolon or comma to separate multiple properties, as the following example shows:</p><p><c>/property:WarningLevel=2;OutDir=bin\Debug</c></p>
+        /// </summary>
+        [Pure]
+        public static T RemoveCoverletOutputFormats<T>(this T toolSettings, IEnumerable<CoverletOutputFormat> coverletOutputFormat) where T : DotNetTestSettings
+        {
+            toolSettings = toolSettings.NewInstance();
+            ExtensionHelper.RemoveItems(toolSettings.PropertiesInternal, "CoverletOutputFormat", coverletOutputFormat, ',');
             return toolSettings;
         }
         #endregion

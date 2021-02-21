@@ -11,11 +11,13 @@ using JetBrains.Annotations;
 using Nuke.Common;
 using Nuke.Common.CI;
 using Nuke.Common.CI.AzurePipelines;
+using Nuke.Common.CI.TeamCity;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
 using Nuke.Common.Tools.Coverlet;
 using Nuke.Common.Tools.DotNet;
+using Nuke.Common.Utilities;
 using Nuke.Common.Utilities.Collections;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
@@ -85,8 +87,10 @@ namespace Nuke.Components
             .SetResultsDirectory(TestResultDirectory)
             .When(InvokedTargets.Contains((this as IReportTestCoverage)?.ReportTestCoverage) || IsServerBuild, _ => _
                 .EnableCollectCoverage()
-                .SetCoverletOutputFormat((CoverletOutputFormat) $"{CoverletOutputFormat.teamcity},{CoverletOutputFormat.cobertura}")
+                .SetCoverletOutputFormats(CoverletOutputFormat.cobertura)
                 .SetExcludeByFile("*.Generated.cs")
+                .When(TeamCity.Instance is not null, _ => _
+                    .SetCoverletOutputFormats((CoverletOutputFormat) $"{CoverletOutputFormat.cobertura},{CoverletOutputFormat.teamcity}".DoubleQuote()))
                 .When(IsServerBuild, _ => _
                     .EnableUseSourceLink()));
 
