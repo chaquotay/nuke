@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Nuke.Common.Tooling;
 
 namespace Nuke.Common.Tools.Devenv
