@@ -31,7 +31,7 @@ namespace Nuke.Common.Tools.Devenv
         /// </summary>
         public static string DevenvPath =>
             ToolPathResolver.TryGetEnvironmentExecutable("DEVENV_EXE") ??
-            ToolPathResolver.GetPathExecutable("devenv");
+            GetToolPath();
         public static Action<OutputType, string> DevenvLogger { get; set; } = ProcessTasks.DefaultLogger;
         /// <summary>
         ///   <p>Devenv lets you build projects and deploy projects from the command line. Use these switches to run the IDE from a script or a .bat file (such as a nightly build script).</p>
@@ -260,7 +260,7 @@ namespace Nuke.Common.Tools.Devenv
         /// <summary>
         ///   Path to the Devenv executable.
         /// </summary>
-        public override string ProcessToolPath => base.ProcessToolPath ?? DevenvTasks.DevenvPath;
+        public override string ProcessToolPath => base.ProcessToolPath ?? GetProcessToolPath();
         public override Action<OutputType, string> ProcessCustomLogger => DevenvTasks.DevenvLogger;
         /// <summary>
         ///   Lets you specify a file to receive errors when you build.
@@ -297,7 +297,7 @@ namespace Nuke.Common.Tools.Devenv
         /// <summary>
         ///   Path to the Devenv executable.
         /// </summary>
-        public override string ProcessToolPath => base.ProcessToolPath ?? DevenvTasks.DevenvPath;
+        public override string ProcessToolPath => base.ProcessToolPath ?? GetProcessToolPath();
         public override Action<OutputType, string> ProcessCustomLogger => DevenvTasks.DevenvLogger;
         /// <summary>
         ///   Lets you specify a file to receive errors when you build.
@@ -334,7 +334,7 @@ namespace Nuke.Common.Tools.Devenv
         /// <summary>
         ///   Path to the Devenv executable.
         /// </summary>
-        public override string ProcessToolPath => base.ProcessToolPath ?? DevenvTasks.DevenvPath;
+        public override string ProcessToolPath => base.ProcessToolPath ?? GetProcessToolPath();
         public override Action<OutputType, string> ProcessCustomLogger => DevenvTasks.DevenvLogger;
         /// <summary>
         ///   Lets you specify a file to receive errors when you build.
@@ -371,7 +371,7 @@ namespace Nuke.Common.Tools.Devenv
         /// <summary>
         ///   Path to the Devenv executable.
         /// </summary>
-        public override string ProcessToolPath => base.ProcessToolPath ?? DevenvTasks.DevenvPath;
+        public override string ProcessToolPath => base.ProcessToolPath ?? GetProcessToolPath();
         public override Action<OutputType, string> ProcessCustomLogger => DevenvTasks.DevenvLogger;
         /// <summary>
         ///   Lets you specify a file to receive errors when you build.
