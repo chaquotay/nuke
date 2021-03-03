@@ -4,7 +4,7 @@
 
 namespace Nuke.Common.Tools.Devenv
 {
-    public partial class DevenvCleanSettings
+    public partial class DevenvSettings
     {
         private string GetProcessToolPath()
         {

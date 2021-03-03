@@ -9,31 +9,65 @@
   "customExecutable": true,
   "tasks": [
     {
-      "help": "Builds the specified solution or project according to the configuration of the specified solution.",
-      "postfix": "Build",
-      "definiteArgument": "/Build",
-      "settingsClass": {}
-    },
-    {
-      "help": "Cleans and then builds the specified solution or project according to the configuration of the specified solution.",
-      "postfix": "Rebuild",
-      "definiteArgument": "/Rebuild",
-      "settingsClass": {}
-    },
-    {
-      "help": "Builds the solution, along with files necessary for deployment, according to the solution's configuration.",
-      "postfix": "Deploy",
-      "definiteArgument": "/Deploy",
-      "settingsClass": {}
-    },
-    {
-      "help": "Deletes any files created by the build command, without affecting source files.",
-      "postfix": "Clean",
-      "definiteArgument": "/Clean",
+      "help": "Devenv lets you build projects and deploy projects from the command line. Use these switches to run the IDE from a script or a .bat file (such as a nightly build script).",
       "settingsClass": {}
     }
   ],
   "commonTaskProperties": [
+    {
+      "name": "Solution",
+      "type": "string",
+      "format": "{value}",
+      "help": "Specifies the solution."
+    },
+    {
+      "name": "Build",
+      "type": "bool",
+      "format": "/Build",
+      "help": "Builds the specified solution or project according to the configuration of the specified solution."
+    },
+    {
+      "name": "BuildConfig",
+      "type": "string",
+      "format": "{value}",
+      "help": "Specifies the build configuration."
+    },
+    {
+      "name": "Rebuild",
+      "type": "bool",
+      "format": "/Rebuild",
+      "help": "Cleans and then builds the specified solution or project according to the configuration of the specified solution."
+    },
+    {
+      "name": "RebuildConfig",
+      "type": "string",
+      "format": "{value}",
+      "help": "Specifies the rebuild configuration."
+    },
+    {
+      "name": "Deploy",
+      "type": "bool",
+      "format": "/Deploy",
+      "help": "Builds the solution, along with files necessary for deployment, according to the solution's configuration."
+    },
+    {
+      "name": "DeployConfig",
+      "type": "string",
+      "format": "{value}",
+      "help": "Specifies the deploy configuration."
+    },
+    {
+      "name": "Clean",
+      "type": "bool",
+      "format": "/Clean",
+      "help": "Deletes any files created by the build command, without affecting source files."
+    },
+    {
+      "name": "CleanConfig",
+      "type": "string",
+      "format": "{value}",
+      "help": "Specifies the clean configuration."
+    },
     {
       "name": "Logfile",
       "type": "string",

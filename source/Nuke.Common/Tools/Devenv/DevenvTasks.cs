@@ -7,7 +7,7 @@ using Nuke.Common.Tooling;
 
 namespace Nuke.Common.Tools.Devenv
 {
-    partial class DevenvTasks
+    public partial class DevenvTasks
     {
         internal static string GetToolPath()
         {
